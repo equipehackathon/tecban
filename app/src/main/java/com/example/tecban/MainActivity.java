@@ -1,13 +1,21 @@
 package com.example.tecban;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.tecban.fragment.ExtractFragment;
+import com.example.tecban.fragment.PlanningFragment;
+import com.example.tecban.fragment.ReportFragment;
 import com.example.tecban.interface_retrofit.RetrofitCredentials;
 import com.example.tecban.model.CredentialsResponse;
 import com.example.tecban.service.ServiceGenerator;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +36,33 @@ public class MainActivity extends AppCompatActivity {
 
         credentialsResponse = new CredentialsResponse();
         retrofitConverter();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+
+            switch (item.getItemId()) {
+                case R.id.nav_extract:
+                    selectedFragment = new ExtractFragment();
+                    break;
+                case R.id.nav_report:
+                    selectedFragment = new ReportFragment();
+                    break;
+                case R.id.nav_planning:
+                    selectedFragment = new PlanningFragment();
+                    break;
+            }
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+
+            return true;
+        });
+
+        bottomNavigationView.setSelectedItemId(R.id.nav_extract);
     }
 
     public void retrofitConverter() {
@@ -50,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
                         credentialsResponse.setTokenType(responseServer.getTokenType());
                         credentialsResponse.setExpiresIn(responseServer.getExpiresIn());
 
-                        Toast.makeText(getApplicationContext(), "access_token: " + credentialsResponse.getAccessToken() + "\n"
+                        /*Toast.makeText(getApplicationContext(), "access_token: " + credentialsResponse.getAccessToken() + "\n"
                                                                 + "token_type: " + credentialsResponse.getTokenType() + "\n"
-                                                                + "expires_in: " + credentialsResponse.getExpiresIn(), Toast.LENGTH_SHORT).show();
+                                                                + "expires_in: " + credentialsResponse.getExpiresIn(), Toast.LENGTH_SHORT).show();*/
 
                     }
 

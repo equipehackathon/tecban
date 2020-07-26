@@ -3,4 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="selectedTab">#8B51E0</color>
+    <color name="unselectedTab">#ECECEC</color>
+    <color name="listItem">#ECECEC</color>
 </resources>

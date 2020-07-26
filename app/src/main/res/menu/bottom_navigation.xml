@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_extract"
+        android:icon="@drawable/ic_extrato"
+        android:title="Extrato"/>
+
+    <item android:id="@+id/nav_report"
+        android:icon="@drawable/ic_relatorio"
+        android:title="Relatório"/>
+
+    <item android:id="@+id/nav_planning"
+        android:icon="@drawable/ic_planejamento"
+        android:title="Planejamento"/>
+
+</menu>
