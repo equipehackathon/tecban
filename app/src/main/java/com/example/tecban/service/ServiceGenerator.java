@@ -35,6 +35,7 @@ public class ServiceGenerator {
 
     //URL base do endpoint. Deve sempre terminar com /
     public static final String API_BASE_URL = "https://as1.tecban-sandbox.o3bank.co.uk/";
+    public static final String API_BASE_URL_RS = "https://rs1.tecban-sandbox.o3bank.co.uk/";
     private static final String PASSWORD = "123456";
 
     private static OkHttpClient generateSecureOkHttpClient(Context context) {
@@ -121,6 +122,33 @@ public class ServiceGenerator {
         //Instância do retrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .client(generateSecureOkHttpClient(context))
+                .build();
+
+        return retrofit.create(serviceClass);
+    }
+
+    public static <S> S createService(Class<S> serviceClass, Context context, boolean rs) {
+
+        //Instancia do interceptador das requisições
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        String url = "";
+
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+                .readTimeout(15, TimeUnit.SECONDS);
+
+        if (!rs) {
+            url = API_BASE_URL;
+        } else {
+            url = API_BASE_URL_RS;
+        }
+
+        httpClient.addInterceptor(loggingInterceptor);
+        //Instância do retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create(new Gson()))
                 .client(generateSecureOkHttpClient(context))
                 .build();

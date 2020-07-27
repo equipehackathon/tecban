@@ -1,8 +1,9 @@
-package com.example.tecban.interface_retrofit;
+package com.example.tecban.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Saldo{
+public class ConsumoSaldo {
 
     public String valor;
 
@@ -38,7 +39,7 @@ public class Saldo{
     @Expose
     private String creditDebit;
 
-    public Saldo(){}
+    public ConsumoSaldo(){}
 
     public String getContentType() {
         return contentType;
@@ -80,7 +81,7 @@ public class Saldo{
         this.accountId = accountId;
     }
 
-    public String getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
