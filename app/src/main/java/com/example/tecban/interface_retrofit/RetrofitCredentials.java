@@ -23,3 +23,22 @@ public interface RetrofitCredentials {
                                              @Field("scope") String scope);
 
 }
+public interface RetrofitSaldos {
+    @Header({
+            "AccountId": "5f1866367af45c38b665fab2",
+            "Amount": ",
+            "Currency": "BRL"
+            "CreditDebitIndicator": "Credit"
+    })
+
+
+    @GET(/saldo/{saldo})
+    Call<ConsumoSaldo> getSaldo(@Field("Content-Type") String contentType,
+                                           @Field("x-fapi-financial-id") String financialId,
+                                           @Field("x-fapi-interaction-id") String interactionId,
+                                           @Field("Authorization") String authorization,
+                                           @Field("AccountId") String accountId,
+                                           @Field("Amount") Double amount,
+                                           @Field("Currency") String currency,
+                                           @Field("CreditDebitIndicator") String creditDebit;
+}
